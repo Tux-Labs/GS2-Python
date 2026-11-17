@@ -31,8 +31,8 @@ def main():
     barra = "=========================="
     while True:
         limparTela()
-        print(f"{barra}\n{"Projeto AquaSinal":^26}\n{barra}")
-        print(f"1. Consultar riscos hoje\n2. Guia de segurança e rota (DURANTE)\n3. Guia de saúde pós-alagamento (DEPOIS)\n4. Registrar relato de alagamento\n5. Consultar relatos\n6. Analisar relatsos\n0. Sair")
+        print(f"{barra}\n{'Projeto AquaSinal':^26}\n{barra}")
+        print(f"1. Consultar riscos hoje\n2. Guia de segurança e rota (DURANTE)\n3. Guia de saúde pós-alagamento (DEPOIS)\n4. Registrar relato de alagamento\n5. Consultar relatos\n6. Analisar relatos\n0. Sair")
         op = input("Digite a opção que você deseja acessar\n- ")
         match op:
             case "1":
@@ -96,7 +96,7 @@ def clima(barra):
     resultado = buscarClima(-23.5505, -46.6333)
     chuva = resultado[0][0]
     horas = resultado[1][0]
-    print(f"{barra}\n{"RISCO DE CHUVA HOJE":^26}\n{barra}")
+    print(f"{barra}\n{'RISCO DE CHUVA HOJE':^26}\n{barra}")
     print(f"Chuva prevista para hoje: {chuva} mm")
     print(f"Horas com chuva hoje: {horas} h")
     print(f"Nível: {nivelChuva(chuva)}")
@@ -104,7 +104,7 @@ def clima(barra):
 
 def guiaDurante(barra):
     limparTela()
-    print(f"{barra}\n{"GUIA DURANTE ENCHENTES":^26}\n{barra}")
+    print(f"{barra}\n{'GUIA DURANTE ENCHENTES':^26}\n{barra}")
     print("1. Evite atravessar ruas, túneis e passagens alagadas.")
     print("2. Prefira rotas mais altas e sem degraus ou rampas alagadas.")
     print("3. Se estiver em ônibus ou metrô, siga as orientações da operadora.")
@@ -113,7 +113,7 @@ def guiaDurante(barra):
 
 def guiaApos(barra):
     limparTela()
-    print(f"{barra}\n{"GUIA APÓS ENCHENTES":^26}\n{barra}")
+    print(f"{barra}\n{'GUIA APÓS ENCHENTES':^26}\n{barra}")
     print("1. Não beba nem use água que tenha tido contato com a enchente.")
     print("2. Lave e desinfete objetos e superfícies atingidos pela água.")
     print("3. Evite contato com a água parada (risco de leptospirose).")
@@ -140,7 +140,7 @@ def registrarRelatos(relatos):
 def escolherZona(barra):
     while True:
             limparTela()
-            print(f"{barra}\n{"Registrar Relato":^26}\n{barra}")
+            print(f"{barra}\n{'Registrar Relato':^26}\n{barra}")
             for i in bairros.keys():
                 print(i)
             escolhaZona = input("Digite a zona que seu bairro se localiza\n- ")
@@ -162,7 +162,7 @@ def escolherZona(barra):
 def escolherBairro(escolhaZona, barra):
     while True:
         limparTela()
-        print(f"{barra}\n{"Registrar Relato":^26}\n{barra}")
+        print(f"{barra}\n{'Registrar Relato':^26}\n{barra}")
         for bairro in bairros[escolhaZona]:
             print(bairro)
         escolhaBairro = input("Digite o bairro em que ocorreu o relato\n- ")
@@ -188,14 +188,14 @@ def salvarRelatos(barra):
     escolhaZona = escolherZona(barra)
     escolhaBairro = escolherBairro(escolhaZona, barra)
     limparTela()
-    print(f"{barra}\n{"Registrar Relato":^26}\n{barra}")
+    print(f"{barra}\n{'Registrar Relato':^26}\n{barra}")
     desc = ""
     while len(desc) < 5:
         desc = input("Descreva o local (Rua, Ponto de Refenrência, Etc.)(Min. 5 caracteres): ")
         if len(desc) < 5:
             print("Descrição muito curta\n")
     limparTela()
-    print(f"{barra}\n{"Registrar Relato":^26}\n{barra}")
+    print(f"{barra}\n{'Registrar Relato':^26}\n{barra}")
     for nivel in niveis:
         print(f"{nivel} ({niveis[nivel][0]})")
     nivel = input("\nDigite o nível que deseja incluir no relato: ")
@@ -214,12 +214,12 @@ def salvarRelatos(barra):
     input("Digite algo para voltar: ")
 
 def visualisarRelatos(barra):
-    print(f"{barra*3}\n{"Visualisar Relatos":^78}\n{barra*3}")
+    print(f"{barra*3}\n{'Visualisar Relatos':^78}\n{barra*3}")
     relatos = carregarRelatos()
     if len(relatos) == 0:
         print("Nenhum relato registrado ainda")
     for relato in relatos:
-        print(f"#{relato['id']} | {relato['dataHora']} | {relato['bairro']:^10} | Nível: {relato['nivel']} | Descrição: {relato["desc"]}")
+        print(f"#{relato['id']} | {relato['dataHora']} | {relato['bairro']:^10} | Nível: {relato['nivel']} | Descrição: {relato['desc']}")
     input("Digite algo para voltar: ")
 
 #----------------------------------------------------------------
@@ -276,13 +276,13 @@ def chaveOrdem(item):
     return (-item[1]["pontos"], item[0])
 
 def mostrarTodosZona(barra):
-    print(f"{barra}\n{"Visão Geral"}\n{barra}")
+    print(f"{barra}\n{'Visão Geral'}\n{barra}")
     pontuacao = pontuarBairros(relatosValidos(carregarRelatos()))
     totais = {}
     for zona in bairros:
         totais[zona] = somarZona(pontuacao, zona)
     limparTela()
-    print(f"{barra}\n{"Análise Todas as Zonas":^26}\n{barra}")
+    print(f"{barra}\n{'Análise Todas as Zonas':^26}\n{barra}")
     for zona, dados in sorted(totais.items(), key=chaveOrdem):
         print(montarLinha(zona, dados, 12))
     print(f"pesos: {pesos}")
@@ -305,7 +305,7 @@ def analisarRelatos(barra):
     zonas = list(bairros.keys())
     while True:
         limparTela()
-        print(f"{barra}\n{"Analisar Relatos":^26}\n{barra}")
+        print(f"{barra}\n{'Analisar Relatos':^26}\n{barra}")
         print("1. Zona Norte\n2. Zona Leste\n3. Zona Sul\n4. Zona Oeste\n5. Centro\n6. Todas as Zonas\n0. Sair")
         op = input("Digite a opção que deseja acessar\n- ")
         if op == "6":
